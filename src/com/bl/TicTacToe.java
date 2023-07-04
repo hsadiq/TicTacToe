@@ -29,11 +29,20 @@ public class TicTacToe {
         }else {
             computerLetter = 'X';
         }
-        System.out.println("You Choose: " + letter);
+        System.out.println("You Choose: " + playerLetter + " Computer Get: " + computerLetter);
+    }
+
+    public void printBoard(){
+        System.out.println(" " + board[1] + " | " + board[2] + " | " + board[3] + " ");
+        System.out.println("---+---+---");
+        System.out.println(" " + board[4] + " | " + board[5] + " | " + board[6] + " ");
+        System.out.println("---+---+---");
+        System.out.println(" " + board[7] + " | " + board[8] + " | " + board[9] + " ");
     }
 
     public static void main(String[] args) {
         TicTacToe game = new TicTacToe();
         game.chooseLetter();
+        game.printBoard();
     }
 }
