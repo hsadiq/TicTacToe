@@ -1,4 +1,5 @@
 package com.bl;
+
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -9,6 +10,12 @@ public class TicTacToe {
     private char playerLetter;
     private char computerLetter;
     private boolean isPlayerTurn;
+
+    private final int[][] WINNING_COMBINATIONS = {
+            {1, 2, 3}, {4, 5, 6}, {7, 8, 9}, // rows
+            {1, 4, 7}, {2, 5, 8}, {3, 6, 9}, // columns
+            {1, 5, 9}, {3, 5, 7} // diagonals
+    };
 
     public TicTacToe() {
         board = new char[10];
@@ -49,10 +56,6 @@ public class TicTacToe {
         return board[index] == ' ';
     }
 
-    public void setCell(int index, char symbol) {
-        board[index] = symbol;
-    }
-
     public boolean isBoardFull() {
         for (int i = 1; i < board.length; i++) {
             if (isSpaceFree(i)) {
@@ -74,8 +77,59 @@ public class TicTacToe {
 
         makeMove(index, playerLetter);
         isPlayerTurn = false;
+
+        if (isWinner(playerLetter)) {
+            System.out.println("Congratulations! You won!");
+            System.exit(0);
+        } else if (isBoardFull()) {
+            System.out.println("It's a tie!");
+            System.exit(0);
+        }
     }
 
+    public boolean isWinner(char letter) {
+        for (int[] combination : WINNING_COMBINATIONS) {
+            if (board[combination[0]] == letter && board[combination[1]] == letter && board[combination[2]] == letter) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void computerTurn() {
+        Random random = new Random();
+        int index = random.nextInt(9) + 1;
+
+        while (!isSpaceFree(index)) {
+            index = random.nextInt(9) + 1;
+        }
+
+        makeMove(index, computerLetter);
+        isPlayerTurn = true;
+
+        if (isWinner(computerLetter)) {
+            System.out.println("Computer wins!");
+            System.exit(0);
+        } else if (isBoardFull()) {
+            System.out.println("It's a tie!");
+            System.exit(0);
+        }
+    }
+
+    public void playGame() {
+        chooseLetter();
+        firstToss();
+        printBoard();
+
+        while (true) {
+            if (isPlayerTurn) {
+                letterPosition();
+            } else {
+                computerTurn();
+            }
+            printBoard();
+        }
+    }
 
     public void firstToss() {
         Random random = new Random();
@@ -92,8 +146,6 @@ public class TicTacToe {
 
     public static void main(String[] args) {
         TicTacToe game = new TicTacToe();
-        game.chooseLetter();
-        game.firstToss();
-        game.printBoard();
+        game.playGame();
     }
 }
