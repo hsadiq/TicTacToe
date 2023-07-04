@@ -48,10 +48,27 @@ public class TicTacToe {
         return board[index] == ' ';
     }
 
+    public void setCell(int index, char symbol){
+        board[index] = symbol;
+    }
+
+    public boolean isBoardFull() {
+        for (int i = 1; i < board.length; i++){
+            if (isSpaceFree(i)){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void letterPosition(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter Position To Move (1- 9): ");
+        int index = sc.nextInt();
+    }
+
     public static void main(String[] args) {
         TicTacToe game = new TicTacToe();
         game.chooseLetter();
         game.printBoard();
-        game.makeMove(5, game.playerLetter);
     }
 }
