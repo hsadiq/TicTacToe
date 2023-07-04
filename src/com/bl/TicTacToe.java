@@ -40,9 +40,18 @@ public class TicTacToe {
         System.out.println(" " + board[7] + " | " + board[8] + " | " + board[9] + " ");
     }
 
+    public void makeMove(int index, char letter){
+        board[index] = letter;
+    }
+
+    public boolean isSpaceFree(int index){
+        return board[index] == ' ';
+    }
+
     public static void main(String[] args) {
         TicTacToe game = new TicTacToe();
         game.chooseLetter();
         game.printBoard();
+        game.makeMove(5, game.playerLetter);
     }
 }
