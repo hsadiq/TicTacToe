@@ -5,6 +5,8 @@ import java.util.Arrays;
 public class TicTacToe {
 
     private char[] board;
+    private char playerLetter;
+    private char computerLetter;
 
     public TicTacToe(){
         board = new char[10];
