@@ -99,12 +99,15 @@ public class TicTacToe {
     public void computerTurn() {
         for (int[] combination : WINNING_COMBINATIONS) {
             int countComputerLetter = 0;
+            int countPlayerLetter = 0;
             int countEmpty = 0;
             int emptyIndex = 0;
 
             for (int index : combination) {
                 if (board[index] == computerLetter) {
                     countComputerLetter++;
+                } else if (board[index] == playerLetter) {
+                    countPlayerLetter++;
                 } else if (board[index] == ' ') {
                     countEmpty++;
                     emptyIndex = index;
@@ -121,6 +124,12 @@ public class TicTacToe {
                     System.out.println("It's a tie!");
                     System.exit(0);
                 }
+                return;
+            }
+
+            if (countPlayerLetter == 2 && countEmpty == 1) {
+                makeMove(emptyIndex, computerLetter);
+                isPlayerTurn = true;
                 return;
             }
         }
