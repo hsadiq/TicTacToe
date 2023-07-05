@@ -97,6 +97,34 @@ public class TicTacToe {
     }
 
     public void computerTurn() {
+        for (int[] combination : WINNING_COMBINATIONS) {
+            int countComputerLetter = 0;
+            int countEmpty = 0;
+            int emptyIndex = 0;
+
+            for (int index : combination) {
+                if (board[index] == computerLetter) {
+                    countComputerLetter++;
+                } else if (board[index] == ' ') {
+                    countEmpty++;
+                    emptyIndex = index;
+                }
+            }
+
+            if (countComputerLetter == 2 && countEmpty == 1) {
+                makeMove(emptyIndex, computerLetter);
+                isPlayerTurn = true;
+                if (isWinner(computerLetter)) {
+                    System.out.println("Computer wins!");
+                    System.exit(0);
+                } else if (isBoardFull()) {
+                    System.out.println("It's a tie!");
+                    System.exit(0);
+                }
+                return;
+            }
+        }
+
         Random random = new Random();
         int index = random.nextInt(9) + 1;
 
